@@ -1,22 +1,50 @@
 <?php
 
+// Importar los espacios de nombres necesarios
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PhpParser\Node\Stmt\TryCatch;
 
+// Definir la clase del controlador y extenderla de Controller
 class CrudController extends Controller
 {
+    // Función para mostrar todos los registros de trabajadores
     public function index(){
-        $datos=DB::select(" select * from trabajadores ");
-        return view("Welcome")->with("datos",$datos);
+        // Consultar todos los registros de trabajadores ordenados por ID en orden descendente
+        $datos = DB::select("SELECT * FROM trabajadores ORDER BY ID DESC");
+        
+        // Retornar la vista "Welcome" con los datos obtenidos
+        return view("Welcome")->with("datos", $datos);
     }
 
-    public function create(Request $request){
+    // Función para buscar registros de trabajadores en la base de datos
+    public function buscar(Request $request){
+        // Obtener el texto de búsqueda desde la solicitud
+        $texto = trim($request->get('texto'));
         
+        // Realizar la consulta a la base de datos utilizando Eloquent ORM
+        $datos = DB::table('trabajadores')
+                    ->select ('ID','Nombre','Cedula','Cuenta','Ubicacion','Area','Cargo','Codigo',
+                    'Region','Oficina','Tipo_de_computador','Marca','Modelo','Numero_de_serie','Id_producto',
+                    'Procesador','Ram','Disco_duro','Gpu','Tipo_de_sistema','Display','Historial_asignacion','Procesos_a_ejecutar','Observaciones')
+                    ->where('ID','LIKE','%'.$texto.'%')
+                    ->orWhere('Cedula','LIKE','%'.$texto.'%')
+                    ->orderBy('ID','asc')
+                    ->paginate(10);
+        
+        // Retornar la vista "Welcome" con los datos de la búsqueda y el texto de búsqueda
+        return view('Welcome', compact('datos', 'texto'));        
+    }
+
+    // Función para crear un nuevo registro de trabajador en la base de datos
+    public function create(Request $request){
         try {
-            $sql = DB::insert("insert into trabajadores(Nombre,Cedula,Cuenta,Ubicacion,Area,Cargo,Codigo,Region,Oficina,Tipo_de_computador,Marca,Modelo,Numero_de_serie,Id_producto,Procesador,Ram,Disco_duro,Gpu,Tipo_de_sistema,Display,Historial_asignacion,Procesos_a_ejecutar,Observaciones) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [
+            // Realizar la inserción en la tabla "trabajadores" con los datos recibidos
+            $sql = DB::insert("INSERT INTO trabajadores(Nombre,Cedula,Cuenta,Ubicacion,Area,Cargo,Codigo,
+            Region,Oficina,Tipo_de_computador,Marca,Modelo,Numero_de_serie,Id_producto,
+            Procesador,Ram,Disco_duro,Gpu,Tipo_de_sistema,Display,Historial_asignacion,Procesos_a_ejecutar,Observaciones)
+             VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [
                 $request->nombre,
                 $request->cedula,
                 $request->cuenta,
@@ -42,14 +70,52 @@ class CrudController extends Controller
                 $request->observaciones
             ]);
         } catch (\Throwable $th) {
-            $sql =0;
+            // Capturar cualquier excepción ocurrida durante la inserción
+            $sql = 0;
         }
     
+        // Verificar si la inserción fue exitosa y redirigir con un mensaje apropiado
         if ($sql == true) {
-            return back()->with("Correcto","Trabajador correctamente registrado");
+            return back()->with("Correcto", "Trabajador correctamente registrado");
         } else {
-            return back()->with("Incorrecto","Error al registrar");
+            return back()->with("Incorrecto", "Error al registrar");
         }
     }
     
+    // Función para actualizar un registro de la base de datos
+    public function update(Request $request)
+    {
+        try {
+            // Realizar la actualización del registro en la tabla "trabajadores" con los datos recibidos
+            $sql = DB::update("UPDATE trabajadores SET Nombre=?, Cedula=?, Cuenta=?, Ubicacion=?, Area=?, Cargo=?, Codigo=?,
+             Region=?, Oficina=?, Ram=?, Disco_duro=?, Tipo_de_sistema=?, Historial_asignacion=?, Procesos_a_ejecutar=?, Observaciones=? WHERE ID=?",[
+                $request->nombre,
+                $request->cedula,
+                $request->cuenta,
+                $request->ubicacion,
+                $request->area,
+                $request->cargo,
+                $request->codigo,
+                $request->region,
+                $request->oficina,
+                $request->ram,
+                $request->disco_duro,
+                $request->tipo_sistema,
+                $request->historial_asignacion,
+                $request->procesos_ejecutar,
+                $request->observaciones,
+                $request->id,
+            ]);
+    
+            // Verificar si la actualización fue exitosa y redirigir con un mensaje apropiado
+            if ($sql) {
+                return back()->with("Correcto", "Trabajador correctamente modificado");
+            } else {
+                return back()->with("Incorrecto", "Error al modificar");
+            }
+        } catch (\Throwable $th) {
+            // Capturar cualquier excepción ocurrida durante la actualización
+            return back()->with("Incorrecto", "Error al modificar: " . $th->getMessage());
+        }
+    }
 }

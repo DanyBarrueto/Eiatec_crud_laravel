@@ -10,31 +10,34 @@
 </head>
 <body>
 
-<header style="background-color:aquamarine; border-radius:10px; ">
-    <div>
-        <img src="<?php echo e(asset('img/Logo_eiatec.png')); ?>" class="img-responsive" style="width: 20%; height: auto; margin-left:15vh ">
-        </div>
-</header>
+<!--Logo empresa-->
+    <header style="background-color:aquamarine; border-radius:10px; ">
+        <div>
+            <img src="<?php echo e(asset('img/Logo_eiatec.png')); ?>" class="img-responsive" style="width: 20%; height: auto; margin-left:15vh ">
+            </div>
+    </header>
 
-<?php if(session("Correcto")): ?>
-<div style="background-color: #7ab82c"><?php echo e(session("Correcto")); ?></div>
-<?php endif; ?>
+<!--Mensajes para indicar si el dato se guardo o actualizo bien-->
+    <?php if(session("Correcto")): ?>
+    <div class="alert alert-success"><?php echo e(session("Correcto")); ?></div>
+    <?php endif; ?>
 
-<?php if(session("Incorrecto")): ?>
-<div style="background-color: #ff0000"><?php echo e(session("Incorrecto")); ?></div>
-<?php endif; ?>
+    <?php if(session("Incorrecto")): ?>
+    <div class="alert alert-danger"><?php echo e(session("Incorrecto")); ?></div>
+    <?php endif; ?>
 
+<!--Formulario principal para poder ingresar los datos-->
     <div class="container">
-
-        <br> 
-        <h2>Usuario:</h2>
+        <br>
+        <!--Formulario principal parte la parte de datos personales--> 
+        <h2 class="fw-bold" >Usuario:</h2>
         <div class="row justify-content-center">
             <form class="col-md-8" action="<?php echo e(route("example-app.create")); ?>" method="post" style="width: 200vh;">
                 <?php echo csrf_field(); ?>
                 <div class="row">
                     <div class="col-md-2">
                         <label for="cedula" class="form-label fw-bold" style="color: #7ab82c;">Cédula:</label>
-                        <input type="text" id="cedula" name="cedula" class="form-control border-dark  text-white text-center" style="background-color: #66c2c2;" required />
+                        <input type="text" id="cedula" name="cedula" class="form-control border-dark  text-white text-center" style="background-color: #66c2c2;"  required />
                     </div>
                     <div class="col-md-6">
                         <label for="nombre" class="form-label fw-bold" style="color: #7ab82c;">Nombre:</label>
@@ -68,7 +71,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="cargo" class="form-label fw-bold" style="color: #7ab82c;">Cargo:</label>
-                        <select id="cargo" name="cargo" class="form-select border-dark text-white" style="background-color: #66c2c2;" required>
+                        <select id="cargo" name="cargo" class="form-select border-dark text-white" style="background-color: #66c2c2;"  required>
                             <option value=""></option>
                             <option value="Gerente">Gerente</option>
                             <option value="Profesional Forestal">Profesional Forestal</option>
@@ -156,8 +159,8 @@
                     </div>
 
                     <hr>
-                    <!--Aca empieza la parte de los datos del equipo-->
-                    <h2>
+                    <!--Aca empieza la parte para ingresar los datos del equipo asignado-->
+                    <h2 class="fw-bold">
                         Equipo:
                     </h2>
 
@@ -184,7 +187,6 @@
                             <option value="Lenovo">Lenovo</option>
                             <option value="Dell">Dell</option>
                             <option value="Hp">Hp</option>
-                            <option value="LENOVO">LENOVO</option>
                             <option value="Asus">Asus</option>
                             <option value="Huawei">Huawei</option>
                             <option value="Acer">Acer</option>
@@ -280,8 +282,10 @@
                         </select>
                         <br>
                     </div>
+
                     <hr>
-                    <h2>
+                    <!--Parte para ingresar la historia del equipo-->
+                    <h2 class="fw-bold">
                         Historial:
                     </h2>
 
@@ -297,25 +301,38 @@
 
                     <div class="col-md-12">
                         <label for="observaciones" class="form-label fw-bold" style="color: #7ab82c;">Observaciones:</label>
-                        <textarea name="observaciones" rows="3" class="form-control border-dark text-white" style="background-color: #66c2c2;"></textarea>
+                        <textarea name="observaciones" rows="3" class="form-control border-dark text-white" style="background-color: #66c2c2;" ></textarea>
                     </div>
-                    
                 </div>
                 <input type="submit" name="submit" value="Enviar" class="btn btn-lg btn-success mt-2" />
-
                 <hr>
             </form>
         </div>
     </div>
 
-<!--Tabla con lo datos de la BDD-->
+<!--Tabla para los datos de la BDD-->
 
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="mt-3 text-dark">Lista de trabajadores</h2>
+                <h2 class="mt-3 text-dark fw-bold" >Tabla de trabajadores:</h2>
 
-                <div class="table-responsive overflow-auto" style="max-height: 400px;">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <form action="<?php echo e(route('example-app.buscar')); ?>" method="GET">
+                            <div class="form-row">
+                                <div class="col-sm-4 my-1">
+                                <input type="text" class="form-control" name="texto" value="Inserta el ID o la cedula" onfocus="this.value='';">
+                                </div>
+                                <div class="col-auto my-1">
+                                    <input type="submit" class="btn btn-primary" value="Buscar">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="table-responsive overflow-auto" style="max-height:45vh;">
                     <table class="table table-light ">
                         <thead class="table-dark table-responsive ">
                           <tr>
@@ -381,222 +398,228 @@
                                 <!-- Modal para modificar los datos de la tabla-->
                                 <div class="modal fade" id="modalEditar<?php echo e($item->ID); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog modal-xl modal-lg">
-                                    <div class="modal-content" >
-                                        <div class="modal-header " style="background-color: #f79a0e;">
-                                        <h1 class="modal-title fs-3 fw-bold" id="exampleModalLabel">Modificar datos</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="modal-content" >
+                                            <div class="modal-header " style="background-color: #f79a0e;">
+                                            <h1 class="modal-title fs-3 fw-bold" id="exampleModalLabel">Modificar datos</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body" style="background-color: #f2f2f2;">
+                                                <form class="col-md-8" action="<?php echo e(route('example-app.update')); ?>" method="post">
+                                                    <?php echo csrf_field(); ?>
+                                                    <div class="row">
+
+                                                        <div class="col-md-1">
+                                                            <label for="id" class="form-label fw-bold">ID</label>
+                                                            <input type="text" id="id" name="id" class="form-control border-dark text-white text-center" style="background-color:  #ff3333;" value="<?php echo e($item->ID); ?>" readonly >
+                                                        </div>
+
+                                                        <div class="col-md-2">
+                                                            <label for="cedula" class="form-label fw-bold">Cédula:</label>
+                                                            <input type="text" id="cedula" name="cedula" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;" value="<?php echo e($item->Cedula); ?>"  />
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <label for="nombre" class="form-label fw-bold">Nombre:</label>
+                                                            <input type="text" id="nombre" name="nombre" class="form-control border-dark  text-white text-center" style="background-color:  #33ccff;" value="<?php echo e($item->Nombre); ?>" />
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label for="oficina" class="form-label fw-bold">Oficina:</label>
+                                                            <select id="oficina" name="oficina" class="form-select border-dark text-white" style="background-color: #33ccff;" >
+                                                                <option value=""></option>
+                                                                <option value="N_Rio" <?php echo e($item->Oficina == 'N_Rio' ? 'selected' : ''); ?>>N_Rio</option>
+                                                                <option value="S_Nei" <?php echo e($item->Oficina == 'S_Nei' ? 'selected' : ''); ?>>S_Nei</option>
+                                                                <option value="C_Téc" <?php echo e($item->Oficina == 'C_Téc' ? 'selected' : ''); ?>>C_Téc</option>
+                                                                <option value="C_Adm" <?php echo e($item->Oficina == 'C_Adm' ? 'selected' : ''); ?>>C_Adm</option>
+                                                                <option value="C_Hof" <?php echo e($item->Oficina == 'C_Hof' ? 'selected' : ''); ?>>C_Hof</option>
+                                                                <option value="N_Hof" <?php echo e($item->Oficina == 'N_Hof' ? 'selected' : ''); ?>>N_Hof</option>
+                                                                <option value="S_Hof" <?php echo e($item->Oficina == 'S_Hof' ? 'selected' : ''); ?>>S_Hof</option>
+                                                                <option value="N_Uri" <?php echo e($item->Oficina == 'N_Uri' ? 'selected' : ''); ?>>N_Uri</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-2">
+                                                            <label for="area" class="form-label fw-bold">Area:</label>
+                                                            <select id="area" name="area" class="form-select border-dark text-white" style="background-color: #33ccff;" >
+                                                                <option value=""></option>
+                                                                <option value="Tecnica" <?php echo e($item->Area == 'Tecnica' ? 'selected' : ''); ?>>Tecnica</option>
+                                                                <option value="Contabilidad" <?php echo e($item->Area == 'Contabilidad' ? 'selected' : ''); ?>>Contabilidad</option>
+                                                                <option value="Administracion" <?php echo e($item->Area == 'Administracion' ? 'selected' : ''); ?>>Administracion</option>
+                                                                <option value="Geb_Centro" <?php echo e($item->Area == 'Geb_Centro' ? 'selected' : ''); ?>>Geb_Centro</option>
+                                                                <option value="Geb_Norte" <?php echo e($item->Area == 'Geb_Norte' ? 'selected' : ''); ?>>Geb_Norte</option>
+                                                                <option value="Gerencia" <?php echo e($item->Area == 'Gerencia' ? 'selected' : ''); ?>>Gerencia</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label for="cargo" class="form-label fw-bold">Cargo:</label>
+                                                            <select id="cargo" name="cargo" class="form-select border-dark text-white" style="background-color: #33ccff;" >
+                                                                <option value=""></option>
+                                                                <option value="Gerente" <?php echo e($item->Cargo == 'Gerente' ? 'selected' : ''); ?>>Gerente</option>
+                                                                <option value="Profesional Forestal" <?php echo e($item->Cargo == 'Profesional Forestal' ? 'selected' : ''); ?>>Profesional Forestal</option>
+                                                                <option value="Profesional Ambiental" <?php echo e($item->Cargo == 'Profesional Ambiental' ? 'selected' : ''); ?>>Profesional Ambiental</option>
+                                                                <option value="Gestor Predial" <?php echo e($item->Cargo == 'Gestor Predial' ? 'selected' : ''); ?>>Gestor Predial</option>
+                                                                <option value="Coordinador de Proyectos" <?php echo e($item->Cargo == 'Coordinador de Proyectos' ? 'selected' : ''); ?>>Coordinador de Proyectos</option>
+                                                                <option value="Auxiliar HSEQ" <?php echo e($item->Cargo == 'Auxiliar HSEQ' ? 'selected' : ''); ?>>Auxiliar HSEQ</option>
+                                                                <option value="Profesional Civil" <?php echo e($item->Cargo == 'Profesional Civil' ? 'selected' : ''); ?>>Profesional Civil</option>
+                                                                <option value="Profesional Social" <?php echo e($item->Cargo == 'Profesional Social' ? 'selected' : ''); ?>>Profesional Social</option>
+                                                                <option value="Gerente Tecnico" <?php echo e($item->Cargo == 'Gerente Tecnico' ? 'selected' : ''); ?>>Gerente Tecnico</option>
+                                                                <option value="Coordinador De Arqueología" <?php echo e($item->Cargo == 'Coordinador De Arqueología' ? 'selected' : ''); ?>>Coordinador De Arqueología</option>
+                                                                <option value="Profesional Biologo" <?php echo e($item->Cargo == 'Profesional Biologo' ? 'selected' : ''); ?>>Profesional Biologo</option>
+                                                                <option value="Tecnologo Social" <?php echo e($item->Cargo == 'Tecnologo Social' ? 'selected' : ''); ?>>Tecnologo Social</option>
+                                                                <option value="Auxiliar de Servicios Generales" <?php echo e($item->Cargo == 'Auxiliar de Servicios Generales' ? 'selected' : ''); ?>>Auxiliar de Servicios Generales</option>
+                                                                <option value="Coordinador Sig" <?php echo e($item->Cargo == 'Coordinador Sig' ? 'selected' : ''); ?>>Coordinador Sig</option>
+                                                                <option value="Gerente Administrativo" <?php echo e($item->Cargo == 'Gerente Administrativo' ? 'selected' : ''); ?>>Gerente Administrativo</option>
+                                                                <option value="Coordinador Area Sig" <?php echo e($item->Cargo == 'Coordinador Area Sig' ? 'selected' : ''); ?>>Coordinador Area Sig</option>
+                                                                <option value="Contador Junior" <?php echo e($item->Cargo == 'Contador Junior' ? 'selected' : ''); ?>>Contador Junior</option>
+                                                                <option value="Gestor Social" <?php echo e($item->Cargo == 'Gestor Social' ? 'selected' : ''); ?>>Gestor Social</option>
+                                                                <option value="Logistico/Conduccion" <?php echo e($item->Cargo == 'Logistico/Conduccion' ? 'selected' : ''); ?>>Logistico/Conduccion</option>
+                                                                <option value="Profesional Geologo" <?php echo e($item->Cargo == 'Profesional Geologo' ? 'selected' : ''); ?>>Profesional Geologo</option>
+                                                                <option value="Profesional Biotico" <?php echo e($item->Cargo == 'Profesional Biotico' ? 'selected' : ''); ?>>Profesional Biotico</option>
+                                                                <option value="Profesional Especializado" <?php echo e($item->Cargo == 'Profesional Especializado' ? 'selected' : ''); ?>>Profesional Especializado</option>
+                                                                <option value="Asistente Administrativo" <?php echo e($item->Cargo == 'Asistente Administrativo' ? 'selected' : ''); ?>>Asistente Administrativo</option>
+                                                                <option value="Profesional Abiotico" <?php echo e($item->Cargo == 'Profesional Abiotico' ? 'selected' : ''); ?>>Profesional Abiotico</option>
+                                                                <option value="Asistente De Facturacion" <?php echo e($item->Cargo == 'Asistente De Facturacion' ? 'selected' : ''); ?>>Asistente De Facturacion</option>
+                                                                <option value="Estructurador de Proyectos" <?php echo e($item->Cargo == 'Estructurador de Proyectos' ? 'selected' : ''); ?>>Estructurador de Proyectos</option>
+                                                                <option value="Gerente General" <?php echo e($item->Cargo == 'Gerente General' ? 'selected' : ''); ?>>Gerente General</option>
+                                                                <option value="Logistico" <?php echo e($item->Cargo == 'Logistico' ? 'selected' : ''); ?>>Logistico</option>
+                                                                <option value="Auxiliar Tecnico/Alturas" <?php echo e($item->Cargo == 'Auxiliar Tecnico/Alturas' ? 'selected' : ''); ?>>Auxiliar Tecnico/Alturas</option>
+                                                                <option value="Profesional Arqueologo" <?php echo e($item->Cargo == 'Profesional Arqueologo' ? 'selected' : ''); ?>>Profesional Arqueologo</option>
+                                                                <option value="Tecnico Biologo" <?php echo e($item->Cargo == 'Tecnico Biologo' ? 'selected' : ''); ?>>Tecnico Biologo</option>
+                                                                <option value="Profesional Sig / Profesional De Aseguramiento De Información - Sig" <?php echo e($item->Cargo == 'Profesional Sig / Profesional De Aseguramiento De Información - Sig' ? 'selected' : ''); ?>>Profesional Sig / Profesional De Aseguramiento De Información - Sig</option>
+                                                                <option value="Coordinador Administrativo" <?php echo e($item->Cargo == 'Coordinador Administrativo' ? 'selected' : ''); ?>>Coordinador Administrativo</option>
+                                                                <option value="Tecnico Juridico" <?php echo e($item->Cargo == 'Tecnico Juridico' ? 'selected' : ''); ?>>Tecnico Juridico</option>
+                                                                <option value="Tecnologo Geologo" <?php echo e($item->Cargo == 'Tecnologo Geologo' ? 'selected' : ''); ?>>Tecnologo Geologo</option>
+                                                                <option value="Auxiliar Recursos Humanos" <?php echo e($item->Cargo == 'Auxiliar Recursos Humanos' ? 'selected' : ''); ?>>Auxiliar Recursos Humanos</option>
+                                                                <option value="Tecnico De Sistemas" <?php echo e($item->Cargo == 'Tecnico De Sistemas' ? 'selected' : ''); ?>>Tecnico De Sistemas</option>
+                                                                <option value="Subgerente" <?php echo e($item->Cargo == 'Subgerente' ? 'selected' : ''); ?>>Subgerente</option>
+                                                                <option value="Coordinador Social" <?php echo e($item->Cargo == 'Coordinador Social' ? 'selected' : ''); ?>>Coordinador Social</option>
+                                                                <option value="Coordinador De Compras Y Mantenimiento" <?php echo e($item->Cargo == 'Coordinador De Compras Y Mantenimiento' ? 'selected' : ''); ?>>Coordinador De Compras Y Mantenimiento</option>
+                                                                <option value="Coordinador HSEQ" <?php echo e($item->Cargo == 'Coordinador HSEQ' ? 'selected' : ''); ?>>Coordinador HSEQ</option>
+                                                                <option value="Coordinador T.I.C." <?php echo e($item->Cargo == 'Coordinador T.I.C.' ? 'selected' : ''); ?>>Coordinador T.I.C.</option>
+                                                                <option value="Profesional Biologo Mastozoologo" <?php echo e($item->Cargo == 'Profesional Biologo Mastozoologo' ? 'selected' : ''); ?>>Profesional Biologo Mastozoologo</option>
+                                                                <option value="Gestor Documental - Tecnico" <?php echo e($item->Cargo == 'Gestor Documental - Tecnico' ? 'selected' : ''); ?>>Gestor Documental - Tecnico</option>
+                                                                <option value="Contador" <?php echo e($item->Cargo == 'Contador' ? 'selected' : ''); ?>>Contador</option>
+                                                                <option value="Auxiliar Contable" <?php echo e($item->Cargo == 'Auxiliar Contable' ? 'selected' : ''); ?>>Auxiliar Contable</option>
+                                                                <option value="Coordinador Juridica" <?php echo e($item->Cargo == 'Coordinador Juridica' ? 'selected' : ''); ?>>Coordinador Juridica</option>
+                                                                <option value="Gerente Comercial" <?php echo e($item->Cargo == 'Gerente Comercial' ? 'selected' : ''); ?>>Gerente Comercial</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-4">
+                                                            <label for="cuenta" class="form-label fw-bold">Cuenta:</label>
+                                                            <input type="text" id="cuenta" name="cuenta" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;"  value="<?php echo e($item->Cuenta); ?>"  />
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label for="region" class="form-label fw-bold">Región:</label>
+                                                            <select id="region" name="region" class="form-select border-dark text-white" style="background-color: #33ccff;" >
+                                                                <option value=""></option>
+                                                                <option value="Centro" <?php echo e($item->Region == 'Centro' ? 'selected' : ''); ?>>Centro</option>
+                                                                <option value="Norte" <?php echo e($item->Region == 'Norte' ? 'selected' : ''); ?>>Norte</option>
+                                                                <option value="Sur" <?php echo e($item->Region == 'Sur' ? 'selected' : ''); ?>>Sur</option>
+                                                            </select>                                                    
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label for="ubicacion" class="form-label fw-bold">Ubicación:</label>
+                                                            <select id="ubicacion" name="ubicacion" class="form-select border-dark text-white" style="background-color: #33ccff;" >
+                                                                <option value=""></option>
+                                                                <option value="Bogotá" <?php echo e($item->Ubicacion == 'Bogotá' ? 'selected' : ''); ?>>Bogotá</option>
+                                                                <option value="Cartagena" <?php echo e($item->Ubicacion == 'Cartagena' ? 'selected' : ''); ?>>Cartagena</option>
+                                                                <option value="Ibague" <?php echo e($item->Ubicacion == 'Ibague' ? 'selected' : ''); ?>>Ibague</option>
+                                                                <option value="Neiva" <?php echo e($item->Ubicacion == 'Neiva' ? 'selected' : ''); ?>>Neiva</option>
+                                                                <option value="Puente Nacional" <?php echo e($item->Ubicacion == 'Puente Nacional' ? 'selected' : ''); ?>>Puente Nacional</option>
+                                                                <option value="Riohacha" <?php echo e($item->Ubicacion == 'Riohacha' ? 'selected' : ''); ?>>Riohacha</option>
+                                                                <option value="Santa Marta" <?php echo e($item->Ubicacion == 'Santa Marta' ? 'selected' : ''); ?>>Santa Marta</option>
+                                                                <option value="Sogamoso" <?php echo e($item->Ubicacion == 'Sogamoso' ? 'selected' : ''); ?>>Sogamoso</option>
+                                                                <option value="Tunja" <?php echo e($item->Ubicacion == 'Tunja' ? 'selected' : ''); ?>>Tunja</option>
+                                                                <option value="Uribia" <?php echo e($item->Ubicacion == 'Uribia' ? 'selected' : ''); ?>>Uribia</option>
+                                                                <option value="Valledupar" <?php echo e($item->Ubicacion == 'Valledupar' ? 'selected' : ''); ?>>Valledupar</option>
+                                                            </select>
+                                                            <br>
+                                                        </div>
+                                                        
+                                    
+                                                        <!--Aca empieza la parte de los datos del equipo-->
+                                                        <h2>
+                                                            Equipo
+                                                        </h2>
+                                    
+                                                        <div class="col-md-2">
+                                                            <label for="codigo" class="form-label fw-bold">Codigo:</label>
+                                                            <input type="text" id="codigo" name="codigo" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;" value="<?php echo e($item->Codigo); ?>"  />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label for="tipo_sistema" class="form-label fw-bold">Tipo de sistema:</label>
+                                                            <select id="tipo_sistema" name="tipo_sistema" class="form-select border-dark text-white" style="background-color: #33ccff;" >
+                                                                <option value=""></option>
+                                                                <option value="Windows10 home" <?php echo e($item->Tipo_de_sistema == 'Windows10 home' ? 'selected' : ''); ?>>Windows 10 home</option>
+                                                                <option value="Windows10 home single" <?php echo e($item->Tipo_de_sistema == 'Windows10 home single' ? 'selected' : ''); ?>>Windows 10 home single</option>
+                                                                <option value="Windows10 home single language" <?php echo e($item->Tipo_de_sistema == 'Windows10 home single language' ? 'selected' : ''); ?>>Windows 10 home single language</option>
+                                                                <option value="Windows10 pro" <?php echo e($item->Tipo_de_sistema == 'Windows10 pro' ? 'selected' : ''); ?>>Windows 10 pro</option>
+                                                                <option value="windows11 home" <?php echo e($item->Tipo_de_sistema == 'windows11 home' ? 'selected' : ''); ?>>windows 11 home</option>
+                                                                <option value="windows11 home single" <?php echo e($item->Tipo_de_sistema == 'windows11 home single' ? 'selected' : ''); ?>>windows 11 home single</option>
+                                                                <option value="windows11 home single language" <?php echo e($item->Tipo_de_sistema == 'windows11 home single language' ? 'selected' : ''); ?>>windows 11 home single language</option>
+                                                                <option value="windows11 pro" <?php echo e($item->Tipo_de_sistema == 'windows11 pro' ? 'selected' : ''); ?>>windows 11 pro</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                    
+                                                        <div class="col-md-2">
+                                                            <label for="ram" class="form-label fw-bold">Ram:</label>
+                                                            <select id="ram" name="ram" class="form-select border-dark text-white" style="background-color: #33ccff;" >
+                                                                <option value=""></option>
+                                                                <option value="8Gb" <?php echo e($item->Ram == '8Gb' ? 'selected' : ''); ?>>8Gb</option>
+                                                                <option value="12Gb" <?php echo e($item->Ram == '12Gb' ? 'selected' : ''); ?>>12Gb</option>
+                                                                <option value="16Gb" <?php echo e($item->Ram == '16Gb' ? 'selected' : ''); ?>>16Gb</option>
+                                                                <option value="32Gb" <?php echo e($item->Ram == '32Gb' ? 'selected' : ''); ?>>32Gb</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                    
+                                                        <div class="col-md-2">
+                                                            <label for="disco_duro" class="form-label fw-bold">Disco duro:</label>
+                                                            <select id="disco_duro" name="disco_duro" class="form-select border-dark text-white" style="background-color: #33ccff;" >
+                                                                <option value=""></option>
+                                                                <option value="128Gb" <?php echo e($item->Disco_duro == '128Gb' ? 'selected' : ''); ?>>128 Gb</option>
+                                                                <option value="250Gb" <?php echo e($item->Disco_duro == '250Gb' ? 'selected' : ''); ?>>250 Gb</option>
+                                                                <option value="500Gb" <?php echo e($item->Disco_duro == '500Gb' ? 'selected' : ''); ?>>500 Gb</option>
+                                                                <option value="1TB" <?php echo e($item->Disco_duro == '1TB' ? 'selected' : ''); ?>>1 TB</option>
+                                                                <option value="1Tb+250Gb" <?php echo e($item->Disco_duro == '1Tb+250Gb' ? 'selected' : ''); ?>>1 TB + 250Gb</option>
+                                                                <option value="1Tb+500Gb" <?php echo e($item->Disco_duro == '1Tb+500Gb' ? 'selected' : ''); ?>>1 TB + 500Gb</option>
+                                                            </select>
+                                                            <br>
+                                                        </div>
+                                                        
+                                    
+                                                        <h2>
+                                                            Historial
+                                                        </h2>
+                                    
+                                                        <div class="col-md-12">
+                                                            <label for="historial_asignacion" class="form-label fw-bold">Historial asignacion:</label>
+                                                            <input type="text" id="historial_asignacion" name="historial_asignacion" class="form-control border-dark text-white" style="background-color:  #33ccff;" value="<?php echo e($item->Historial_asignacion); ?>"  />
+                                                        </div>
+                                    
+                                                        <div class="col-md-12">
+                                                            <label for="procesos_ejecutar" class="form-label fw-bold">Procesos a ejecutar:</label>
+                                                            <input type="text" id="procesos_ejecutar" name="procesos_ejecutar" class="form-control border-dark text-white" style="background-color:  #33ccff;" value="<?php echo e($item->Procesos_a_ejecutar); ?>"  />
+                                                        </div>
+                                    
+                                                        <div class="col-md-12">
+                                                            <label for="observaciones" class="form-label fw-bold">Observaciones:</label>
+                                                            <textarea name="observaciones" rows="3" class="form-control border-dark text-white" style="background-color: #33ccff;" ><?php echo e($item->Observaciones); ?></textarea>
+                                                        </div>
+                                                        
+                                                        <br><br>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-success">Guardar cambios</button>
+                                                            </div>
+                                                    </div>           
+                                                </form>
+                                            </div>
                                         </div>
-
-                                        <div class="modal-body" style="background-color: #f2f2f2;">
-                                        <form class="col-md-8">
-                                            <?php echo csrf_field(); ?>
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <label for="cedula" class="form-label fw-bold">Cédula:</label>
-                                                    <input type="text" id="cedula" name="cedula" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;" value="<?php echo e($item->Cedula); ?>"  />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="nombre" class="form-label fw-bold">Nombre:</label>
-                                                    <input type="text" id="nombre" name="nombre" class="form-control border-dark  text-white text-center" style="background-color:  #33ccff;" value="<?php echo e($item->Nombre); ?>" />
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label for="oficina" class="form-label fw-bold">Oficina:</label>
-                                                    <select id="oficina" name="oficina" class="form-select border-dark text-white" style="background-color: #33ccff;" >
-                                                        <option value=""></option>
-                                                        <option value="N_Rio" <?php echo e($item->Oficina == 'N_Rio' ? 'selected' : ''); ?>>N_Rio</option>
-                                                        <option value="S_Nei" <?php echo e($item->Oficina == 'S_Nei' ? 'selected' : ''); ?>>S_Nei</option>
-                                                        <option value="C_Téc" <?php echo e($item->Oficina == 'C_Téc' ? 'selected' : ''); ?>>C_Téc</option>
-                                                        <option value="C_Adm" <?php echo e($item->Oficina == 'C_Adm' ? 'selected' : ''); ?>>C_Adm</option>
-                                                        <option value="C_Hof" <?php echo e($item->Oficina == 'C_Hof' ? 'selected' : ''); ?>>C_Hof</option>
-                                                        <option value="N_Hof" <?php echo e($item->Oficina == 'N_Hof' ? 'selected' : ''); ?>>N_Hof</option>
-                                                        <option value="S_Hof" <?php echo e($item->Oficina == 'S_Hof' ? 'selected' : ''); ?>>S_Hof</option>
-                                                        <option value="N_Uri" <?php echo e($item->Oficina == 'N_Uri' ? 'selected' : ''); ?>>N_Uri</option>
-                                                    </select>
-                                                </div>
-                                                
-                                                <div class="col-md-2">
-                                                    <label for="area" class="form-label fw-bold">Area:</label>
-                                                    <select id="area" name="area" class="form-select border-dark text-white" style="background-color: #33ccff;" >
-                                                        <option value=""></option>
-                                                        <option value="Tecnica" <?php echo e($item->Area == 'Tecnica' ? 'selected' : ''); ?>>Tecnica</option>
-                                                        <option value="Contabilidad" <?php echo e($item->Area == 'Contabilidad' ? 'selected' : ''); ?>>Contabilidad</option>
-                                                        <option value="Administracion" <?php echo e($item->Area == 'Administracion' ? 'selected' : ''); ?>>Administracion</option>
-                                                        <option value="Geb_Centro" <?php echo e($item->Area == 'Geb_Centro' ? 'selected' : ''); ?>>Geb_Centro</option>
-                                                        <option value="Geb_Norte" <?php echo e($item->Area == 'Geb_Norte' ? 'selected' : ''); ?>>Geb_Norte</option>
-                                                        <option value="Gerencia" <?php echo e($item->Area == 'Gerencia' ? 'selected' : ''); ?>>Gerencia</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <label for="cargo" class="form-label fw-bold">Cargo:</label>
-                                                    <select id="cargo" name="cargo" class="form-select border-dark text-white" style="background-color: #33ccff;" >
-                                                        <option value=""></option>
-                                                        <option value="Gerente" <?php echo e($item->Cargo == 'Gerente' ? 'selected' : ''); ?>>Gerente</option>
-                                                        <option value="Profesional Forestal" <?php echo e($item->Cargo == 'Profesional Forestal' ? 'selected' : ''); ?>>Profesional Forestal</option>
-                                                        <option value="Profesional Ambiental" <?php echo e($item->Cargo == 'Profesional Ambiental' ? 'selected' : ''); ?>>Profesional Ambiental</option>
-                                                        <option value="Gestor Predial" <?php echo e($item->Cargo == 'Gestor Predial' ? 'selected' : ''); ?>>Gestor Predial</option>
-                                                        <option value="Coordinador de Proyectos" <?php echo e($item->Cargo == 'Coordinador de Proyectos' ? 'selected' : ''); ?>>Coordinador de Proyectos</option>
-                                                        <option value="Auxiliar HSEQ" <?php echo e($item->Cargo == 'Auxiliar HSEQ' ? 'selected' : ''); ?>>Auxiliar HSEQ</option>
-                                                        <option value="Profesional Civil" <?php echo e($item->Cargo == 'Profesional Civil' ? 'selected' : ''); ?>>Profesional Civil</option>
-                                                        <option value="Profesional Social" <?php echo e($item->Cargo == 'Profesional Social' ? 'selected' : ''); ?>>Profesional Social</option>
-                                                        <option value="Gerente Tecnico" <?php echo e($item->Cargo == 'Gerente Tecnico' ? 'selected' : ''); ?>>Gerente Tecnico</option>
-                                                        <option value="Coordinador De Arqueología" <?php echo e($item->Cargo == 'Coordinador De Arqueología' ? 'selected' : ''); ?>>Coordinador De Arqueología</option>
-                                                        <option value="Profesional Biologo" <?php echo e($item->Cargo == 'Profesional Biologo' ? 'selected' : ''); ?>>Profesional Biologo</option>
-                                                        <option value="Tecnologo Social" <?php echo e($item->Cargo == 'Tecnologo Social' ? 'selected' : ''); ?>>Tecnologo Social</option>
-                                                        <option value="Auxiliar de Servicios Generales" <?php echo e($item->Cargo == 'Auxiliar de Servicios Generales' ? 'selected' : ''); ?>>Auxiliar de Servicios Generales</option>
-                                                        <option value="Coordinador Sig" <?php echo e($item->Cargo == 'Coordinador Sig' ? 'selected' : ''); ?>>Coordinador Sig</option>
-                                                        <option value="Gerente Administrativo" <?php echo e($item->Cargo == 'Gerente Administrativo' ? 'selected' : ''); ?>>Gerente Administrativo</option>
-                                                        <option value="Coordinador Area Sig" <?php echo e($item->Cargo == 'Coordinador Area Sig' ? 'selected' : ''); ?>>Coordinador Area Sig</option>
-                                                        <option value="Contador Junior" <?php echo e($item->Cargo == 'Contador Junior' ? 'selected' : ''); ?>>Contador Junior</option>
-                                                        <option value="Gestor Social" <?php echo e($item->Cargo == 'Gestor Social' ? 'selected' : ''); ?>>Gestor Social</option>
-                                                        <option value="Logistico/Conduccion" <?php echo e($item->Cargo == 'Logistico/Conduccion' ? 'selected' : ''); ?>>Logistico/Conduccion</option>
-                                                        <option value="Profesional Geologo" <?php echo e($item->Cargo == 'Profesional Geologo' ? 'selected' : ''); ?>>Profesional Geologo</option>
-                                                        <option value="Profesional Biotico" <?php echo e($item->Cargo == 'Profesional Biotico' ? 'selected' : ''); ?>>Profesional Biotico</option>
-                                                        <option value="Profesional Especializado" <?php echo e($item->Cargo == 'Profesional Especializado' ? 'selected' : ''); ?>>Profesional Especializado</option>
-                                                        <option value="Asistente Administrativo" <?php echo e($item->Cargo == 'Asistente Administrativo' ? 'selected' : ''); ?>>Asistente Administrativo</option>
-                                                        <option value="Profesional Abiotico" <?php echo e($item->Cargo == 'Profesional Abiotico' ? 'selected' : ''); ?>>Profesional Abiotico</option>
-                                                        <option value="Asistente De Facturacion" <?php echo e($item->Cargo == 'Asistente De Facturacion' ? 'selected' : ''); ?>>Asistente De Facturacion</option>
-                                                        <option value="Estructurador de Proyectos" <?php echo e($item->Cargo == 'Estructurador de Proyectos' ? 'selected' : ''); ?>>Estructurador de Proyectos</option>
-                                                        <option value="Gerente General" <?php echo e($item->Cargo == 'Gerente General' ? 'selected' : ''); ?>>Gerente General</option>
-                                                        <option value="Logistico" <?php echo e($item->Cargo == 'Logistico' ? 'selected' : ''); ?>>Logistico</option>
-                                                        <option value="Auxiliar Tecnico/Alturas" <?php echo e($item->Cargo == 'Auxiliar Tecnico/Alturas' ? 'selected' : ''); ?>>Auxiliar Tecnico/Alturas</option>
-                                                        <option value="Profesional Arqueologo" <?php echo e($item->Cargo == 'Profesional Arqueologo' ? 'selected' : ''); ?>>Profesional Arqueologo</option>
-                                                        <option value="Tecnico Biologo" <?php echo e($item->Cargo == 'Tecnico Biologo' ? 'selected' : ''); ?>>Tecnico Biologo</option>
-                                                        <option value="Profesional Sig / Profesional De Aseguramiento De Información - Sig" <?php echo e($item->Cargo == 'Profesional Sig / Profesional De Aseguramiento De Información - Sig' ? 'selected' : ''); ?>>Profesional Sig / Profesional De Aseguramiento De Información - Sig</option>
-                                                        <option value="Coordinador Administrativo" <?php echo e($item->Cargo == 'Coordinador Administrativo' ? 'selected' : ''); ?>>Coordinador Administrativo</option>
-                                                        <option value="Tecnico Juridico" <?php echo e($item->Cargo == 'Tecnico Juridico' ? 'selected' : ''); ?>>Tecnico Juridico</option>
-                                                        <option value="Tecnologo Geologo" <?php echo e($item->Cargo == 'Tecnologo Geologo' ? 'selected' : ''); ?>>Tecnologo Geologo</option>
-                                                        <option value="Auxiliar Recursos Humanos" <?php echo e($item->Cargo == 'Auxiliar Recursos Humanos' ? 'selected' : ''); ?>>Auxiliar Recursos Humanos</option>
-                                                        <option value="Tecnico De Sistemas" <?php echo e($item->Cargo == 'Tecnico De Sistemas' ? 'selected' : ''); ?>>Tecnico De Sistemas</option>
-                                                        <option value="Subgerente" <?php echo e($item->Cargo == 'Subgerente' ? 'selected' : ''); ?>>Subgerente</option>
-                                                        <option value="Coordinador Social" <?php echo e($item->Cargo == 'Coordinador Social' ? 'selected' : ''); ?>>Coordinador Social</option>
-                                                        <option value="Coordinador De Compras Y Mantenimiento" <?php echo e($item->Cargo == 'Coordinador De Compras Y Mantenimiento' ? 'selected' : ''); ?>>Coordinador De Compras Y Mantenimiento</option>
-                                                        <option value="Coordinador HSEQ" <?php echo e($item->Cargo == 'Coordinador HSEQ' ? 'selected' : ''); ?>>Coordinador HSEQ</option>
-                                                        <option value="Coordinador T.I.C." <?php echo e($item->Cargo == 'Coordinador T.I.C.' ? 'selected' : ''); ?>>Coordinador T.I.C.</option>
-                                                        <option value="Profesional Biologo Mastozoologo" <?php echo e($item->Cargo == 'Profesional Biologo Mastozoologo' ? 'selected' : ''); ?>>Profesional Biologo Mastozoologo</option>
-                                                        <option value="Gestor Documental - Tecnico" <?php echo e($item->Cargo == 'Gestor Documental - Tecnico' ? 'selected' : ''); ?>>Gestor Documental - Tecnico</option>
-                                                        <option value="Contador" <?php echo e($item->Cargo == 'Contador' ? 'selected' : ''); ?>>Contador</option>
-                                                        <option value="Auxiliar Contable" <?php echo e($item->Cargo == 'Auxiliar Contable' ? 'selected' : ''); ?>>Auxiliar Contable</option>
-                                                        <option value="Coordinador Juridica" <?php echo e($item->Cargo == 'Coordinador Juridica' ? 'selected' : ''); ?>>Coordinador Juridica</option>
-                                                        <option value="Gerente Comercial" <?php echo e($item->Cargo == 'Gerente Comercial' ? 'selected' : ''); ?>>Gerente Comercial</option>
-                                                    </select>
-                                                </div>
-                                                 
-                                                <div class="col-md-4">
-                                                    <label for="cuenta" class="form-label fw-bold">Cuenta:</label>
-                                                    <input type="text" id="cuenta" name="cuenta" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;"  value="<?php echo e($item->Cuenta); ?>"  />
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label for="region" class="form-label fw-bold">Región:</label>
-                                                    <select id="region" name="region" class="form-select border-dark text-white" style="background-color: #33ccff;" >
-                                                        <option value=""></option>
-                                                        <option value="Centro" <?php echo e($item->Region == 'Centro' ? 'selected' : ''); ?>>Centro</option>
-                                                        <option value="Norte" <?php echo e($item->Region == 'Norte' ? 'selected' : ''); ?>>Norte</option>
-                                                        <option value="Sur" <?php echo e($item->Region == 'Sur' ? 'selected' : ''); ?>>Sur</option>
-                                                    </select>                                                    
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label for="ubicacion" class="form-label fw-bold">Ubicación:</label>
-                                                    <select id="ubicacion" name="ubicacion" class="form-select border-dark text-white" style="background-color: #33ccff;" >
-                                                        <option value=""></option>
-                                                        <option value="Bogotá" <?php echo e($item->Ubicacion == 'Bogotá' ? 'selected' : ''); ?>>Bogotá</option>
-                                                        <option value="Cartagena" <?php echo e($item->Ubicacion == 'Cartagena' ? 'selected' : ''); ?>>Cartagena</option>
-                                                        <option value="Ibague" <?php echo e($item->Ubicacion == 'Ibague' ? 'selected' : ''); ?>>Ibague</option>
-                                                        <option value="Neiva" <?php echo e($item->Ubicacion == 'Neiva' ? 'selected' : ''); ?>>Neiva</option>
-                                                        <option value="Puente Nacional" <?php echo e($item->Ubicacion == 'Puente Nacional' ? 'selected' : ''); ?>>Puente Nacional</option>
-                                                        <option value="Riohacha" <?php echo e($item->Ubicacion == 'Riohacha' ? 'selected' : ''); ?>>Riohacha</option>
-                                                        <option value="Santa Marta" <?php echo e($item->Ubicacion == 'Santa Marta' ? 'selected' : ''); ?>>Santa Marta</option>
-                                                        <option value="Sogamoso" <?php echo e($item->Ubicacion == 'Sogamoso' ? 'selected' : ''); ?>>Sogamoso</option>
-                                                        <option value="Tunja" <?php echo e($item->Ubicacion == 'Tunja' ? 'selected' : ''); ?>>Tunja</option>
-                                                        <option value="Uribia" <?php echo e($item->Ubicacion == 'Uribia' ? 'selected' : ''); ?>>Uribia</option>
-                                                        <option value="Valledupar" <?php echo e($item->Ubicacion == 'Valledupar' ? 'selected' : ''); ?>>Valledupar</option>
-                                                    </select>
-                                                    <br>
-                                                </div>
-                                                
-                            
-                                                <!--Aca empieza la parte de los datos del equipo-->
-                                                <h2>
-                                                    Equipo
-                                                </h2>
-                            
-                                                <div class="col-md-2">
-                                                    <label for="codigo" class="form-label fw-bold">Codigo:</label>
-                                                    <input type="text" id="codigo" name="codigo" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;" value="<?php echo e($item->Codigo); ?>"  />
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <label for="tipo_sistema" class="form-label fw-bold">Tipo de sistema:</label>
-                                                    <select id="tipo_sistema" name="tipo_sistema" class="form-select border-dark text-white" style="background-color: #33ccff;" >
-                                                        <option value=""></option>
-                                                        <option value="Windows10 home" <?php echo e($item->Tipo_de_sistema == 'Windows10 home' ? 'selected' : ''); ?>>Windows 10 home</option>
-                                                        <option value="Windows10 home single" <?php echo e($item->Tipo_de_sistema == 'Windows10 home single' ? 'selected' : ''); ?>>Windows 10 home single</option>
-                                                        <option value="Windows10 home single language" <?php echo e($item->Tipo_de_sistema == 'Windows10 home single language' ? 'selected' : ''); ?>>Windows 10 home single language</option>
-                                                        <option value="Windows10 pro" <?php echo e($item->Tipo_de_sistema == 'Windows10 pro' ? 'selected' : ''); ?>>Windows 10 pro</option>
-                                                        <option value="windows11 home" <?php echo e($item->Tipo_de_sistema == 'windows11 home' ? 'selected' : ''); ?>>windows 11 home</option>
-                                                        <option value="windows11 home single" <?php echo e($item->Tipo_de_sistema == 'windows11 home single' ? 'selected' : ''); ?>>windows 11 home single</option>
-                                                        <option value="windows11 home single language" <?php echo e($item->Tipo_de_sistema == 'windows11 home single language' ? 'selected' : ''); ?>>windows 11 home single language</option>
-                                                        <option value="windows11 pro" <?php echo e($item->Tipo_de_sistema == 'windows11 pro' ? 'selected' : ''); ?>>windows 11 pro</option>
-                                                    </select>
-                                                </div>
-                                                
-                            
-                                                <div class="col-md-2">
-                                                    <label for="ram" class="form-label fw-bold">Ram:</label>
-                                                    <select id="ram" name="ram" class="form-select border-dark text-white" style="background-color: #33ccff;" >
-                                                        <option value=""></option>
-                                                        <option value="8Gb" <?php echo e($item->Ram == '8Gb' ? 'selected' : ''); ?>>8Gb</option>
-                                                        <option value="12Gb" <?php echo e($item->Ram == '12Gb' ? 'selected' : ''); ?>>12Gb</option>
-                                                        <option value="16Gb" <?php echo e($item->Ram == '16Gb' ? 'selected' : ''); ?>>16Gb</option>
-                                                        <option value="32Gb" <?php echo e($item->Ram == '32Gb' ? 'selected' : ''); ?>>32Gb</option>
-                                                    </select>
-                                                </div>
-                                                
-                            
-                                                <div class="col-md-2">
-                                                    <label for="disco_duro" class="form-label fw-bold">Disco duro:</label>
-                                                    <select id="disco_duro" name="disco_duro" class="form-select border-dark text-white" style="background-color: #33ccff;" >
-                                                        <option value=""></option>
-                                                        <option value="128Gb" <?php echo e($item->Disco_duro == '128Gb' ? 'selected' : ''); ?>>128 Gb</option>
-                                                        <option value="250Gb" <?php echo e($item->Disco_duro == '250Gb' ? 'selected' : ''); ?>>250 Gb</option>
-                                                        <option value="500Gb" <?php echo e($item->Disco_duro == '500Gb' ? 'selected' : ''); ?>>500 Gb</option>
-                                                        <option value="1TB" <?php echo e($item->Disco_duro == '1TB' ? 'selected' : ''); ?>>1 TB</option>
-                                                        <option value="1Tb+250Gb" <?php echo e($item->Disco_duro == '1Tb+250Gb' ? 'selected' : ''); ?>>1 TB + 250Gb</option>
-                                                        <option value="1Tb+500Gb" <?php echo e($item->Disco_duro == '1Tb+500Gb' ? 'selected' : ''); ?>>1 TB + 500Gb</option>
-                                                    </select>
-                                                    <br>
-                                                </div>
-                                                
-                               
-                                                <h2>
-                                                    Historial
-                                                </h2>
-                            
-                                                <div class="col-md-12">
-                                                    <label for="historial_asignacion" class="form-label fw-bold">Historial asignacion:</label>
-                                                    <input type="text" id="historial_asignacion" name="historial_asignacion" class="form-control border-dark text-white" style="background-color:  #33ccff;" value="<?php echo e($item->Historial_asignacion); ?>"  />
-                                                </div>
-                            
-                                                <div class="col-md-12">
-                                                    <label for="procesos_ejecutar" class="form-label fw-bold">Procesos a ejecutar:</label>
-                                                    <input type="text" id="procesos_ejecutar" name="procesos_ejecutar" class="form-control border-dark text-white" style="background-color:  #33ccff;" value="<?php echo e($item->Procesos_a_ejecutar); ?>"  />
-                                                </div>
-                            
-                                                <div class="col-md-12">
-                                                    <label for="observaciones" class="form-label fw-bold">Observaciones:</label>
-                                                    <textarea name="observaciones" rows="3" class="form-control border-dark text-white" style="background-color: #33ccff;" ><?php echo e($item->Observaciones); ?></textarea>
-                                                </div>
-                                                
-                                                <br><br>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                                                    <button type="submit" class="btn btn-success">Guardar cambios</button>
-                                                    </div>
-                                            </div>           
-                                        </form>
-                                        </div>
-                                    </div>
                                     </div>
                                 </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -607,8 +630,12 @@
                   </div>
                 </div>
             </div>
-        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <br>
+    <br>
+    <br>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html><?php /**PATH C:\xampp\htdocs\example-app\resources\views/Welcome.blade.php ENDPATH**/ ?>

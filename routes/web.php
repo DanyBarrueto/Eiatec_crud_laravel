@@ -3,6 +3,7 @@
 use App\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [CrudController::class, "index"])->name("example-app.index");
 
-//ruta para añadir datos:
+//ruta para añadir datos en la BDD:
 Route::post('/registrar-producto', [CrudController::class, "create"])->name("example-app.create");
 
+//ruta para modificar datos en la BDD:
 Route::post('/modificar-producto', [CrudController::class, "update"])->name("example-app.update");
 
+//ruta para buscar datos en los registros de la BDD:
+Route::get('/buscar-trabajador', [CrudController::class, 'buscar'])->name('example-app.buscar');
