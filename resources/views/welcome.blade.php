@@ -304,7 +304,7 @@
                         <textarea name="observaciones" rows="3" class="form-control border-dark text-white" style="background-color: #66c2c2;" ></textarea>
                     </div>
                 </div>
-                <input type="submit" name="submit" value="Enviar" class="btn btn-lg btn-success mt-2" />
+                <input type="submit" name="submit" value="Enviar" class="btn btn-lg btn-success mt-2 fw-bold" />
                 <hr>
             </form>
         </div>
@@ -325,9 +325,10 @@
                                 <div class="col-sm-4 my-1">
                                 <input type="text" class="form-control" name="texto" value="Inserta el ID o la cedula" onfocus="this.value='';">
                                 </div>
-                                <div class="col-auto my-1">
-                                    <input type="submit" class="btn btn-success " value="Buscar">
-                                </div>
+                                <div class="col-auto my-1" >
+                                    <input type="submit" class="btn btn-success fw-bold" style="width:27vh" value="Buscar">
+                                    <input type="submit" class="btn btn-info fw-bold" style="width:27vh" value="Limpiar" formaction="{{ route('example-app.index') }}">
+                                </div>                                
                             </div>
                         </form>
                     <br>
@@ -415,6 +416,10 @@
                                                     @csrf
 
                                                     <div class="row">
+                                                        
+                                                        <h2 class="fw-bold">
+                                                            Datos personales:
+                                                        </h2>
 
                                                         <div class="col-md-1">
                                                             <label for="id" class="form-label fw-bold">ID</label>
@@ -551,8 +556,8 @@
                                                         
                                     
                                                         <!--Aca empieza la parte de los datos del equipo en el modal-->
-                                                        <h2>
-                                                            Equipo
+                                                        <h2 class="fw-bold">
+                                                            Equipo:
                                                         </h2>
                                     
                                                         <div class="col-md-2">
@@ -604,8 +609,8 @@
                                                         
                                                         <!--Aca empieza la parte del historial del equipo en el modal-->
 
-                                                        <h2>
-                                                            Historial
+                                                        <h2 class="fw-bold">
+                                                            Historial:
                                                         </h2>
                                     
                                                         <div class="col-md-12">
@@ -626,9 +631,9 @@
                                                         <br><br>
 
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                                                            <button type="submit" class="btn btn-success">Guardar cambios</button>
-                                                            </div>
+                                                            <button type="button" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-success fw-bold">Guardar cambios</button>
+                                                        </div>
                                                     </div>           
                                                 </form>
                                             </div>
@@ -642,7 +647,6 @@
                     </div>             
                   </div>
                 </div>
-            </div>
     </div>
     <br>
     <br>
