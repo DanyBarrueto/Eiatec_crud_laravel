@@ -30,7 +30,7 @@
     <div class="container">
         <br>
         <!--Formulario principal la parte de datos personales--> 
-        <h2 class="fw-bold" >Usuario:</h2>
+        <h2 class="fw-bold" >Datos personales del usuario:</h2>
         <div class="row justify-content-center">
             <form class="col-md-8" action="<?php echo e(route("example-app.create")); ?>" method="post" style="width: 200vh;">
                 <?php echo csrf_field(); ?>
@@ -161,7 +161,7 @@
                     <hr>
                     <!--Aca empieza la parte para ingresar los datos del equipo asignado en el formulario principal-->
                     <h2 class="fw-bold">
-                        Equipo:
+                        Datos del equipo:
                     </h2>
 
                     <div class="col-md-2">
@@ -557,7 +557,7 @@
                                     
                                                         <!--Aca empieza la parte de los datos del equipo en el modal-->
                                                         <h2 class="fw-bold">
-                                                            Equipo:
+                                                            Datos del equipo:
                                                         </h2>
                                     
                                                         <div class="col-md-2">
