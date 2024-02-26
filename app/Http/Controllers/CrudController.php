@@ -30,6 +30,7 @@ class CrudController extends Controller
                     'Procesador','Ram','Disco_duro','Gpu','Tipo_de_sistema','Display','Historial_asignacion','Procesos_a_ejecutar','Observaciones')
                     ->where('ID','LIKE','%'.$texto.'%')
                     ->orWhere('Cedula','LIKE','%'.$texto.'%')
+                    ->orWhere('Nombre','LIKE','%'.$texto.'%')
                     ->orderBy('ID','asc')
                     ->paginate(10);
         

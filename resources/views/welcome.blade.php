@@ -315,7 +315,7 @@
                         <form action="{{route('example-app.buscar')}}" method="GET">
                             <div class="form-row">
                                 <div class="col-sm-4 my-1">
-                                <input type="text" class="form-control" name="texto" value="Inserta el ID o la cedula" onfocus="this.value='';">
+                                <input type="text" class="form-control" name="texto" value="INSERTA EL ID, EL NOMBRE O LA CEDULA" onfocus="this.value='';">
                                 </div>
                                 <div class="col-auto my-1" >
                                     <input type="submit" class="btn btn-success fw-bold" style="width:27vh" value="Buscar">
