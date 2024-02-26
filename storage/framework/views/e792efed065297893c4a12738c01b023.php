@@ -141,7 +141,7 @@
                             <option value="Sur">Sur</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label for="ubicacion" class="form-label fw-bold" style="color: #7ab82c;">Ubicación:</label>
                         <input type="text" id="ubicacion" name="ubicacion" class="form-control border-dark text-white" style="background-color: #66c2c2;" required />
                         <br>
@@ -529,7 +529,7 @@
                                                             </select>                                                    
                                                         </div>
 
-                                                        <div class="col-md-2">
+                                                        <div class="col-md-3">
                                                             <label for="ubicacion" class="form-label fw-bold">Ubicación:</label>
                                                             <input type="text" id="ubicacion" name="ubicacion" class="form-control border-dark text-white text-center" style="background-color: #33ccff;" value="<?php echo e($item->Ubicacion); ?>" />
                                                             <br>
