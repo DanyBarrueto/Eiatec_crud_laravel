@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/2460b47c04.js" crossorigin="anonymous"></script>
-    <title>Crud Eiatec</title>
+    <link rel="icon" href="<?php echo e(asset('img/Icono_logo.png.')); ?>" type="image/x-icon">
+    
+    <title>Eiatec</title>
 </head>
 <body>
 
@@ -29,7 +31,7 @@
 <!--Formulario principal para poder ingresar los datos-->
     <div class="container">
         <br>
-        <!--Formulario principal la parte de datos personales--> 
+        <!--Formulario principal, parte de datos personales--> 
         <h2 class="fw-bold" >Datos personales del usuario:</h2>
         <div class="row justify-content-center">
             <form class="col-md-8" action="<?php echo e(route("example-app.create")); ?>" method="post" style="width: 200vh;">
@@ -141,20 +143,7 @@
                     </div>
                     <div class="col-md-2">
                         <label for="ubicacion" class="form-label fw-bold" style="color: #7ab82c;">Ubicación:</label>
-                        <select id="ubicacion" name="ubicacion" class="form-select border-dark text-white" style="background-color: #66c2c2;" required>
-                            <option value=""></option>
-                            <option value="Bogotá">Bogotá</option>
-                            <option value="Cartagena">Cartagena</option>
-                            <option value="Ibague">Ibague</option>
-                            <option value="Neiva">Neiva</option>
-                            <option value="Puente Nacional">Puente Nacional</option>
-                            <option value="Riohacha">Riohacha</option>
-                            <option value="Santa Marta">Santa Marta</option>
-                            <option value="Sogamoso">Sogamoso</option>
-                            <option value="Tunja">Tunja</option>
-                            <option value="Uribia">Uribia</option>
-                            <option value="Valledupar ">Valledupar </option>
-                        </select>
+                        <input type="text" id="ubicacion" name="ubicacion" class="form-control border-dark text-white" style="background-color: #66c2c2;" required />
                         <br>
                     </div>
 
@@ -238,7 +227,9 @@
                             <option value="8Gb">8Gb</option>
                             <option value="12Gb">12Gb</option>
                             <option value="16Gb">16Gb</option>
+                            <option value="24Gb">24Gb</option>
                             <option value="32Gb">32Gb</option>
+                            <option value="64Gb">64Gb</option>
                         </select>
                     </div>
 
@@ -252,6 +243,7 @@
                             <option value="1TB">1 TB</option>
                             <option value="1Tb+250Gb">1 TB + 250Gb</option>
                             <option value="1Tb+500Gb">1 TB + 500Gb</option>
+                            <option value="1Tb+1Tb">1 TB + 1TB</option>
                         </select>
                     </div>
 
@@ -284,7 +276,7 @@
                     </div>
 
                     <hr>
-                    <!--Parte para ingresar la historia del equipo en el formulario principal-->
+                    <!--Parte para ingresar el historial del equipo en el formulario principal-->
                     <h2 class="fw-bold">
                         Historial:
                     </h2>
@@ -526,6 +518,7 @@
                                                             <label for="cuenta" class="form-label fw-bold">Cuenta:</label>
                                                             <input type="text" id="cuenta" name="cuenta" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;"  value="<?php echo e($item->Cuenta); ?>"  />
                                                         </div>
+
                                                         <div class="col-md-2">
                                                             <label for="region" class="form-label fw-bold">Región:</label>
                                                             <select id="region" name="region" class="form-select border-dark text-white" style="background-color: #33ccff;" >
@@ -535,26 +528,13 @@
                                                                 <option value="Sur" <?php echo e($item->Region == 'Sur' ? 'selected' : ''); ?>>Sur</option>
                                                             </select>                                                    
                                                         </div>
+
                                                         <div class="col-md-2">
                                                             <label for="ubicacion" class="form-label fw-bold">Ubicación:</label>
-                                                            <select id="ubicacion" name="ubicacion" class="form-select border-dark text-white" style="background-color: #33ccff;" >
-                                                                <option value=""></option>
-                                                                <option value="Bogotá" <?php echo e($item->Ubicacion == 'Bogotá' ? 'selected' : ''); ?>>Bogotá</option>
-                                                                <option value="Cartagena" <?php echo e($item->Ubicacion == 'Cartagena' ? 'selected' : ''); ?>>Cartagena</option>
-                                                                <option value="Ibague" <?php echo e($item->Ubicacion == 'Ibague' ? 'selected' : ''); ?>>Ibague</option>
-                                                                <option value="Neiva" <?php echo e($item->Ubicacion == 'Neiva' ? 'selected' : ''); ?>>Neiva</option>
-                                                                <option value="Puente Nacional" <?php echo e($item->Ubicacion == 'Puente Nacional' ? 'selected' : ''); ?>>Puente Nacional</option>
-                                                                <option value="Riohacha" <?php echo e($item->Ubicacion == 'Riohacha' ? 'selected' : ''); ?>>Riohacha</option>
-                                                                <option value="Santa Marta" <?php echo e($item->Ubicacion == 'Santa Marta' ? 'selected' : ''); ?>>Santa Marta</option>
-                                                                <option value="Sogamoso" <?php echo e($item->Ubicacion == 'Sogamoso' ? 'selected' : ''); ?>>Sogamoso</option>
-                                                                <option value="Tunja" <?php echo e($item->Ubicacion == 'Tunja' ? 'selected' : ''); ?>>Tunja</option>
-                                                                <option value="Uribia" <?php echo e($item->Ubicacion == 'Uribia' ? 'selected' : ''); ?>>Uribia</option>
-                                                                <option value="Valledupar" <?php echo e($item->Ubicacion == 'Valledupar' ? 'selected' : ''); ?>>Valledupar</option>
-                                                            </select>
+                                                            <input type="text" id="ubicacion" name="ubicacion" class="form-control border-dark text-white text-center" style="background-color: #33ccff;" value="<?php echo e($item->Ubicacion); ?>" />
                                                             <br>
                                                         </div>
                                                         
-                                    
                                                         <!--Aca empieza la parte de los datos del equipo en el modal-->
                                                         <h2 class="fw-bold">
                                                             Datos del equipo:
@@ -588,11 +568,12 @@
                                                                 <option value="8Gb" <?php echo e($item->Ram == '8Gb' ? 'selected' : ''); ?>>8Gb</option>
                                                                 <option value="12Gb" <?php echo e($item->Ram == '12Gb' ? 'selected' : ''); ?>>12Gb</option>
                                                                 <option value="16Gb" <?php echo e($item->Ram == '16Gb' ? 'selected' : ''); ?>>16Gb</option>
+                                                                <option value="64Gb" <?php echo e($item->Ram == '24Gb' ? 'selected' : ''); ?>>24Gb</option>
                                                                 <option value="32Gb" <?php echo e($item->Ram == '32Gb' ? 'selected' : ''); ?>>32Gb</option>
+                                                                <option value="64Gb" <?php echo e($item->Ram == '64Gb' ? 'selected' : ''); ?>>64Gb</option>
                                                             </select>
                                                         </div>
                                                         
-                                    
                                                         <div class="col-md-2">
                                                             <label for="disco_duro" class="form-label fw-bold">Disco duro:</label>
                                                             <select id="disco_duro" name="disco_duro" class="form-select border-dark text-white" style="background-color: #33ccff;" >
@@ -603,6 +584,7 @@
                                                                 <option value="1TB" <?php echo e($item->Disco_duro == '1TB' ? 'selected' : ''); ?>>1 TB</option>
                                                                 <option value="1Tb+250Gb" <?php echo e($item->Disco_duro == '1Tb+250Gb' ? 'selected' : ''); ?>>1 TB + 250Gb</option>
                                                                 <option value="1Tb+500Gb" <?php echo e($item->Disco_duro == '1Tb+500Gb' ? 'selected' : ''); ?>>1 TB + 500Gb</option>
+                                                                <option value="1Tb+1Tb" <?php echo e($item->Disco_duro == '1Tb+1Tb' ? 'selected' : ''); ?>>1 TB + 1TB</option>
                                                             </select>
                                                             <br>
                                                         </div>
