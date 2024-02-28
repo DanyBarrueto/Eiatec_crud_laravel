@@ -40,11 +40,11 @@
                 <div class="row">
                     <div class="col-md-2">
                         <label for="cedula" class="form-label fw-bold" style="color: #7ab82c;">Cédula:</label>
-                        <input type="text" id="cedula" name="cedula" class="form-control border-dark  text-white text-center" style="background-color: #66c2c2;"  required />
+                        <input type="text" id="cedula" name="cedula" class="form-control border-dark  text-white text-center" style="background-color: #66c2c2;" pattern="[0-9]+" required />
                     </div>
                     <div class="col-md-6">
                         <label for="nombre" class="form-label fw-bold" style="color: #7ab82c;">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control border-dark text-white text-center" style="background-color: #66c2c2;" required />
+                        <input type="text" id="nombre" name="nombre" class="form-control border-dark text-white text-center" style="background-color: #66c2c2;" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+" required />
                     </div>
                     <div class="col-md-2">
                         <label for="oficina" class="form-label fw-bold" style="color: #7ab82c;">Oficina:</label>
@@ -144,7 +144,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="ubicacion" class="form-label fw-bold" style="color: #7ab82c;">Ubicación:</label>
-                        <input type="text" id="ubicacion" name="ubicacion" class="form-control border-dark text-white" style="background-color: #66c2c2;" required />
+                        <input type="text" id="ubicacion" name="ubicacion" class="form-control border-dark text-white" style="background-color: #66c2c2;" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+" required />
                         <br>
                     </div>
 
@@ -156,7 +156,7 @@
 
                     <div class="col-md-2">
                         <label for="codigo" class="form-label fw-bold" style="color: #7ab82c;">Codigo:</label>
-                        <input type="text" id="codigo" name="codigo" class="form-control border-dark text-white text-center" style="background-color: #66c2c2;" required />
+                        <input type="text" id="codigo" name="codigo" class="form-control border-dark text-white text-center" style="background-color: #66c2c2;" pattern="[0-9]+" required />
                     </div>
 
                     <div class="col-md-2">
@@ -429,11 +429,11 @@
 
                                                         <div class="col-md-2">
                                                             <label for="cedula" class="form-label fw-bold">Cédula:</label>
-                                                            <input type="text" id="cedula" name="cedula" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;" value="{{$item->Cedula}}"  />
+                                                            <input type="text" id="cedula" name="cedula" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;" value="{{$item->Cedula}}" pattern="[0-9]+" title="Por favor, ingresa solo números" />
                                                         </div>
                                                         <div class="col-md-7">
                                                             <label for="nombre" class="form-label fw-bold">Nombre:</label>
-                                                            <input type="text" id="nombre" name="nombre" class="form-control border-dark  text-white text-center" style="background-color:  #33ccff;" value="{{$item->Nombre}}" />
+                                                            <input type="text" id="nombre" name="nombre" class="form-control border-dark  text-white text-center" style="background-color:  #33ccff;" value="{{$item->Nombre}}" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+" title="Por favor, ingrese solo letras" />
                                                         </div>
 
                                                         <!--
@@ -551,7 +551,7 @@
                                     
                                                         <div class="col-md-2">
                                                             <label for="codigo" class="form-label fw-bold">Codigo:</label>
-                                                            <input type="text" id="codigo" name="codigo" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;" value="{{$item->Codigo}}"  />
+                                                            <input type="text" id="codigo" name="codigo" class="form-control border-dark text-white text-center" style="background-color:  #33ccff;" value="{{$item->Codigo}}" pattern="[0-9]+" title="Por favor, ingresa solo números" />
                                                         </div>
 
                                                         <div class="col-md-6">
