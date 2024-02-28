@@ -121,6 +121,8 @@ class CrudController extends Controller
         }
     }
 
+    //Funcion para poder descargar la BDD
+    
     public function descargarDatos()
     {
         $datos = DB::table('trabajadores')->get()->toArray();

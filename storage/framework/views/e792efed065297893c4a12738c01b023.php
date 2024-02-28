@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/2460b47c04.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('css/styles.css')); ?>">
     <link rel="icon" href="<?php echo e(asset('img/Icono_logo.png.')); ?>" type="image/x-icon">
     
     <title>Eiatec</title>
@@ -296,7 +297,7 @@
                         <textarea name="observaciones" rows="3" class="form-control border-dark text-white" style="background-color: #66c2c2;" ></textarea>
                     </div>
                 </div>
-                <input type="submit" name="submit" value="Enviar" class="btn btn-lg btn-success mt-2 fw-bold" />
+                <input type="submit" name="submit" value="Enviar" class="btn btn-lg btn-success mt-2 fw-bold" id="boton_enviar" />
                 <hr>
             </form>
         </div>
@@ -318,8 +319,8 @@
                                 <input type="text" class="form-control" name="texto" value="INSERTA EL ID, EL NOMBRE O LA CEDULA" onfocus="this.value='';">
                                 </div>
                                 <div class="col-auto my-1" >
-                                    <input type="submit" class="btn btn-success fw-bold" style="width:27.5vh" value="Buscar">
-                                    <input type="submit" class="btn btn-info fw-bold" style="width:27vh" value="Limpiar" formaction="<?php echo e(route('example-app.index')); ?>">
+                                    <input type="submit" class="btn btn-success fw-bold" id="boton_buscar" style="width:27.5vh" value="Buscar">
+                                    <input type="submit" class="btn btn-info fw-bold" id="boton_limpiar" style="width:27vh" value="Limpiar" formaction="<?php echo e(route('example-app.index')); ?>">
                                 </div>                                
                             </div>
                         </form>
@@ -328,7 +329,7 @@
 
                 <div class="row">
                 <form method="GET" action="<?php echo e(route('descargar.datos')); ?>">
-                    <button type="submit" class="btn btn-warning fw-bold" style="width:55vh">Descargar BDD</button>
+                    <button type="submit" class="btn btn-warning fw-bold" id="boton_descargar" style="width:55vh">Descargar BDD</button>
                 </form>
                 </div>
 
@@ -337,7 +338,7 @@
                 <!--Encabezaco de la tabla para los datos de la BDD-->
                 <div class="table-responsive overflow-auto" style="max-height:45vh;">
                     <table class="table table-light ">
-                        <thead class="table-dark table-responsive ">
+                        <thead class="table-success table-responsive ">
                           <tr>
                             <th>#</th>
                             <th>Nombre</th>
@@ -620,8 +621,8 @@
                                                         <br><br>
 
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Cerrar</button>
-                                                            <button type="submit" class="btn btn-success fw-bold">Guardar cambios</button>
+                                                            <button type="button" class="btn btn-danger fw-bold" data-bs-dismiss="modal" id="boton_cerrar">Cerrar</button>
+                                                            <button type="submit" class="btn btn-success fw-bold" id="boton_guardar_cambios" >Guardar cambios</button>
                                                         </div>
                                                     </div>           
                                                 </form>
