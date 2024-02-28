@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 // Definir la clase del controlador y extenderla de Controller
 class CrudController extends Controller
@@ -118,5 +119,35 @@ class CrudController extends Controller
             // Capturar cualquier excepción ocurrida durante la actualización
             return back()->with("Incorrecto", "Error al modificar: " . $th->getMessage());
         }
+    }
+
+    public function descargarDatos()
+    {
+        $datos = DB::table('trabajadores')->get()->toArray();
+        $csvFileName = 'datos.csv';
+
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=".$csvFileName,
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        $callback = function() use ($datos) {
+            $file = fopen('php://output', 'w');
+
+            // Encabezado CSV
+            fputcsv($file, array_keys((array) $datos[0]));
+
+            // Datos
+            foreach ($datos as $dato) {
+                fputcsv($file, (array) $dato);
+            }
+
+            fclose($file);
+        };
+
+        return new StreamedResponse($callback, 200, $headers);
     }
 }

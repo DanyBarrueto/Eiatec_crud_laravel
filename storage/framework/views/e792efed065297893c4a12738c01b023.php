@@ -318,14 +318,21 @@
                                 <input type="text" class="form-control" name="texto" value="INSERTA EL ID, EL NOMBRE O LA CEDULA" onfocus="this.value='';">
                                 </div>
                                 <div class="col-auto my-1" >
-                                    <input type="submit" class="btn btn-success fw-bold" style="width:27vh" value="Buscar">
+                                    <input type="submit" class="btn btn-success fw-bold" style="width:27.5vh" value="Buscar">
                                     <input type="submit" class="btn btn-info fw-bold" style="width:27vh" value="Limpiar" formaction="<?php echo e(route('example-app.index')); ?>">
                                 </div>                                
                             </div>
                         </form>
-                    <br>
                     </div>
                 </div>
+
+                <div class="row">
+                <form method="GET" action="<?php echo e(route('descargar.datos')); ?>">
+                    <button type="submit" class="btn btn-warning fw-bold" style="width:55vh">Descargar BDD</button>
+                </form>
+                </div>
+
+                <br>
 
                 <!--Encabezaco de la tabla para los datos de la BDD-->
                 <div class="table-responsive overflow-auto" style="max-height:45vh;">

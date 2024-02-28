@@ -25,3 +25,6 @@ Route::post('/modificar-producto', [CrudController::class, "update"])->name("exa
 
 //ruta para buscar datos en los registros de la BDD:
 Route::get('/buscar-trabajador', [CrudController::class, 'buscar'])->name('example-app.buscar');
+
+//ruta para descargar la BDD
+Route::get('/descargar-datos', [CrudController::class, 'descargarDatos'])->name('descargar.datos');
