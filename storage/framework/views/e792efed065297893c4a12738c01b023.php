@@ -40,11 +40,11 @@
                 <div class="row">
                     <div class="col-md-2">
                         <label for="cedula" class="form-label fw-bold" style="color: #7ab82c;">Cédula:</label>
-                        <input type="text" id="cedula" name="cedula" class="form-control border-dark  text-white text-center" style="background-color: #66c2c2;" pattern="[0-9]+" required />
+                        <input type="text" id="cedula" name="cedula" class="form-control border-dark  text-white text-center" style="background-color: #66c2c2;" pattern="[0-9]+" title="Por favor ingresa solo números" required />
                     </div>
                     <div class="col-md-6">
                         <label for="nombre" class="form-label fw-bold" style="color: #7ab82c;">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control border-dark text-white text-center" style="background-color: #66c2c2;" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+" required />
+                        <input type="text" id="nombre" name="nombre" class="form-control border-dark text-white text-center" style="background-color: #66c2c2;" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+" title="Por favor ingresa solo letras" required />
                     </div>
                     <div class="col-md-2">
                         <label for="oficina" class="form-label fw-bold" style="color: #7ab82c;">Oficina:</label>
@@ -316,11 +316,11 @@
                         <form action="<?php echo e(route('example-app.buscar')); ?>" method="GET">
                             <div class="form-row">
                                 <div class="col-sm-4 my-1">
-                                <input type="text" class="form-control" name="texto" value="INSERTA EL ID, EL NOMBRE O LA CEDULA" onfocus="this.value='';">
+                                <input type="text" class="form-control" name="texto" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚ\s]*" title="Por favor, ingresa solo letras o números" value="INSERTA EL ID, EL NOMBRE O LA CEDULA" onfocus="this.value='';">
                                 </div>
                                 <div class="col-auto my-1" >
-                                    <input type="submit" class="btn btn-success fw-bold" id="boton_buscar" style="width:27.5vh" value="Buscar">
-                                    <input type="submit" class="btn btn-info fw-bold" id="boton_limpiar" style="width:27vh" value="Limpiar" formaction="<?php echo e(route('example-app.index')); ?>">
+                                    <input type="submit" class="btn btn-success fw-bold" id="boton_buscar" style="width:27.2vh" value="Buscar">
+                                    <input type="submit" class="btn btn-info fw-bold" id="boton_limpiar" style="width:27.3vh" value="Limpiar" formaction="<?php echo e(route('example-app.index')); ?>">
                                 </div>                                
                             </div>
                         </form>
@@ -433,7 +433,7 @@
                                                         </div>
                                                         <div class="col-md-7">
                                                             <label for="nombre" class="form-label fw-bold">Nombre:</label>
-                                                            <input type="text" id="nombre" name="nombre" class="form-control border-dark  text-white text-center" style="background-color:  #33ccff;" value="<?php echo e($item->Nombre); ?>" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+" title="Por favor, ingrese solo letras" />
+                                                            <input type="text" id="nombre" name="nombre" class="form-control border-dark  text-white text-center" style="background-color:  #33ccff;" value="<?php echo e($item->Nombre); ?>" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+" title="Por favor ingresa solo letras" />
                                                         </div>
 
                                                         <!--
